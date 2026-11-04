@@ -1,1 +1,1 @@
-# TPPT-JEPA
+# T2G-JEPA
