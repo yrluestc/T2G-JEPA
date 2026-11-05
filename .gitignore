@@ -25,6 +25,8 @@ logs/
 *.pth
 *.pt
 *.ckpt
+!ckpts/
+!ckpts/**/*.pt
 *.h5
 *.hdf5
 *.npz
