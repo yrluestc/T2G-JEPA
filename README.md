@@ -254,7 +254,27 @@ Choose an earlier metric with `metric_ckpt=/path/to/temporal_metric_epoch_03.pt`
 
 Results are stored in the corresponding `eval_*/metrics.yaml` folders beside each checkpoint. Report mean and standard error over seeds 42/43/44, keeping task files and planner budgets fixed within each comparison.
 
-### 5.3) Results reported in the paper
+### 5.3) Single-dataset, single-seed example (FourRoom, seed 42)
+
+From `hjepa/`, train T2G for FourRoom with the default 5 epochs:
+
+```bash
+python train_temporal_metric.py --config-name metric_fourroom seed=42
+```
+
+Then evaluate the paper's last-2 T2G with planning seed 42:
+
+```bash
+RUN="$HJEPA_HOME/ckpts/fourroom/fourroom_lewm/seed42"
+
+python eval.py --config-name fourroom_flat_metric seed=42 \
+  policy="$RUN/fourroom_lewm_object.ckpt" \
+  metric_ckpt="$RUN/temporal_metric.pt" \
+  cost=metric_dense ++metric_last_n=2 \
+  output.dir=eval_t2g_last2_seed42
+```
+
+### 5.4) Results reported in the paper
 
 Success rate (%), mean ± SE across three seeds, with 50 tasks per environment and seed:
 
