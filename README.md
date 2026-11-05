@@ -196,6 +196,8 @@ seed42/
 
 The metric is saved every epoch by default. The state file includes optimizer state; the entry point does not automatically resume metric training. A fresh run overwrites the metric output names. For a separate experiment, choose another name with `metric.output_name=temporal_metric_experiment.pt`.
 
+Trained T2G metric weights (seed 42 for all four environments) are included in this repository under `ckpts/<env>/<env>_lewm/seed42/temporal_metric.pt`.
+
 T2G learns **relative temporal ordering**; its distance is not calibrated in remaining steps.
 
 ## 5) Planning Evaluation
