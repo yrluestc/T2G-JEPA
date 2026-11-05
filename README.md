@@ -21,6 +21,8 @@ This repository provides training and planning evaluation for **Visual AntMaze, 
 
 In the [paper](https://arxiv.org/abs/2611.05847), last-n T2G improves the unweighted average planning success across the four environments from **32.7% to 63.0%**, while retaining a flat world model.
 
+I am still a junior in this research area. If you notice any problems with the paper or code, or if you have any other suggestions, I would be very glad to discuss them with you. My email address is yrl666@outlook.com.
+
 ## 1) Installation
 
 The commands below target a Linux/CUDA environment. Python 3.11 and the pinned environment versions in `T2G-JEPA/pyproject.toml` are used by the code.
