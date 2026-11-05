@@ -315,13 +315,14 @@ Replay can use cached T2G embeddings without Torch; older caches without those e
 If you use T2G in your research, please cite our paper:
 
 ```bibtex
-@misc{yu2026t2g,
-  title         = {Time-to-Goal: Learned Temporal Metrics for Long-Horizon Planning with JEPA World Models},
-  author        = {Yu, Ruilong and Ye, Fei},
-  year          = {2026},
-  eprint        = {2611.05847},
-  archivePrefix = {arXiv},
-  url           = {https://arxiv.org/abs/2611.05847}
+@misc{yu2026timetogoallearnedtemporalmetrics,
+      title={Time-to-Goal: Learned Temporal Metrics for Long-Horizon Planning with JEPA World Models}, 
+      author={Ruilong Yu and Fei Ye},
+      year={2026},
+      eprint={2611.05847},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2611.05847}, 
 }
 ```
 
