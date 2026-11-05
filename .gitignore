@@ -17,7 +17,7 @@ env/
 htmlcov/
 
 # Data & outputs
-data/
+/data/
 outputs/
 checkpoints/
 wandb/
