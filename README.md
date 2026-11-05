@@ -23,14 +23,14 @@ In the [paper](https://arxiv.org/abs/2611.05847), last-n T2G improves the unweig
 
 ## 1) Installation
 
-The commands below target a Linux/CUDA environment. Python 3.11 and the pinned environment versions in `pyproject.toml` are used by the code.
+The commands below target a Linux/CUDA environment. Python 3.11 and the pinned environment versions in `T2G-JEPA/pyproject.toml` are used by the code.
 
 ```bash
 git clone https://github.com/yrluestc/T2G-JEPA.git
 cd T2G-JEPA
 conda create -n t2g python=3.11.13
 conda activate t2g
-pip install -e ".[train,env]" --extra-index-url https://download.pytorch.org/whl/cu128
+pip install -e "./T2G-JEPA[train,env]" --extra-index-url https://download.pytorch.org/whl/cu128
 pip install huggingface_hub
 
 export HJEPA_HOME=/absolute/path/to/t2g-data
@@ -39,14 +39,14 @@ mkdir -p "$HJEPA_HOME"
 
 `HJEPA_HOME` stores datasets, training checkpoints, normalization statistics, and evaluation outputs. The package retains the upstream name `h-jepa` and Python module `stable_worldmodel`.
 
-**Working directories:** data preparation commands run from the repository root. Training, planning, and diagnostic commands run from **`hjepa/`**. Planning evaluation currently requires CUDA. Select a GPU with `CUDA_VISIBLE_DEVICES=0`; metric training also accepts `device=cpu` or `device=cuda:0`.
+**Working directories:** data preparation commands run from the repository root. Training, planning, and diagnostic commands run from **`T2G-JEPA/hjepa/`**. Planning evaluation currently requires CUDA. Select a GPU with `CUDA_VISIBLE_DEVICES=0`; metric training also accepts `device=cpu` or `device=cuda:0`.
 
 ## 2) Quick Start
 
 First prepare the datasets and fixed evaluation tasks in [Section 3](#3-datasets-and-evaluation-tasks). From the repository root:
 
 ```bash
-cd hjepa
+cd T2G-JEPA/hjepa
 
 # 1. Train a flat LeWM, or use an upstream checkpoint as described in Section 3.3.
 # These overrides disable the optional end-of-training planning/probing callbacks.
@@ -88,8 +88,8 @@ hf download quentinll/lewm-cube --repo-type dataset --local-dir "$HJEPA_HOME" --
 hf download jepa-world-models/h-jepa pusht_expert_val.h5 --repo-type dataset --local-dir "$HJEPA_HOME"
 unzstd "$HJEPA_HOME/pusht_expert_train.h5.zst"
 tar -I unzstd -xf "$HJEPA_HOME/cube_single_expert.tar.zst" -C "$HJEPA_HOME"
-python scripts/data/add_pusht_block_ori.py "$HJEPA_HOME/pusht_expert_train.h5"
-python scripts/data/split_cube.py
+python T2G-JEPA/scripts/data/add_pusht_block_ori.py "$HJEPA_HOME/pusht_expert_train.h5"
+python T2G-JEPA/scripts/data/split_cube.py
 ```
 
 The Cube split uses the first 9,800 episodes for training and the final 200 for validation. The split script creates new files and should be run once.
@@ -109,7 +109,7 @@ These patterns also fetch the probing files. Frozen-model probing is optional fo
 Each environment uses 50 fixed start/goal tasks. From the repository root:
 
 ```bash
-cd hjepa
+cd T2G-JEPA/hjepa
 hf download jepa-world-models/h-jepa --repo-type dataset --local-dir assets --include "eval_trajs/*"
 (cd assets/eval_trajs && sha256sum -c SHA256SUMS)
 ```
@@ -117,7 +117,7 @@ hf download jepa-world-models/h-jepa --repo-type dataset --local-dir assets --in
 The evaluation configs expect:
 
 ```text
-hjepa/assets/eval_trajs/
+T2G-JEPA/hjepa/assets/eval_trajs/
 ├── ant/expert_grid_d3_n50.pt
 ├── fourroom/fourroom_tp35_cross2_goal75_n50_d1.pt
 ├── ogbench/goal_offset_20_pickup_val.pt
@@ -141,7 +141,7 @@ The expected layout is `$HJEPA_HOME/ckpts/<env>/<env>_lewm/seed<seed>/`. The ups
 
 ## 4) Train the Temporal Metric
 
-All commands in this and the following sections run from `hjepa/`.
+All commands in this and the following sections run from `T2G-JEPA/hjepa/`.
 
 ### 4.1) Train or reuse flat LeWM
 
@@ -258,7 +258,7 @@ Results are stored in the corresponding `eval_*/metrics.yaml` folders beside eac
 
 ### 5.3) Single-dataset, single-seed example (FourRoom, seed 42)
 
-From `hjepa/`, train T2G for FourRoom with the default 5 epochs:
+From `T2G-JEPA/hjepa/`, train T2G for FourRoom with the default 5 epochs:
 
 ```bash
 python train_temporal_metric.py --config-name metric_fourroom seed=42
@@ -319,15 +319,15 @@ Replay can use cached T2G embeddings without Torch; older caches without those e
 
 | File / directory | Purpose |
 |---|---|
-| [hjepa/temporal_metric.py](hjepa/temporal_metric.py) | Learned distance, triple sampling, and ranking loss |
-| [hjepa/train_temporal_metric.py](hjepa/train_temporal_metric.py) | Train a metric on frozen LeWM latents |
-| [hjepa/config/train](hjepa/config/train) | Flat world-model and `metric_<env>` training configs |
-| [hjepa/config/eval](hjepa/config/eval) | Flat baseline and T2G planning configs |
-| [hjepa/models/jepa.py](hjepa/models/jepa.py) | Latent rollout and planning-cost implementations |
-| [hjepa/planning_eval.py](hjepa/planning_eval.py) | Checkpoint loading, metric attachment, planning evaluation |
-| [hjepa/scripts/diagnose_planning_geometry.py](hjepa/scripts/diagnose_planning_geometry.py) | Execution-based cost diagnostics and replay |
-| [hjepa/cost_diagnostics.py](hjepa/cost_diagnostics.py) | Temporal-cost statistics and reports |
-| [scripts/data](scripts/data) | Dataset preparation and collection |
+| [T2G-JEPA/hjepa/temporal_metric.py](T2G-JEPA/hjepa/temporal_metric.py) | Learned distance, triple sampling, and ranking loss |
+| [T2G-JEPA/hjepa/train_temporal_metric.py](T2G-JEPA/hjepa/train_temporal_metric.py) | Train a metric on frozen LeWM latents |
+| [T2G-JEPA/hjepa/config/train](T2G-JEPA/hjepa/config/train) | Flat world-model and `metric_<env>` training configs |
+| [T2G-JEPA/hjepa/config/eval](T2G-JEPA/hjepa/config/eval) | Flat baseline and T2G planning configs |
+| [T2G-JEPA/hjepa/models/jepa.py](T2G-JEPA/hjepa/models/jepa.py) | Latent rollout and planning-cost implementations |
+| [T2G-JEPA/hjepa/planning_eval.py](T2G-JEPA/hjepa/planning_eval.py) | Checkpoint loading, metric attachment, planning evaluation |
+| [T2G-JEPA/hjepa/scripts/diagnose_planning_geometry.py](T2G-JEPA/hjepa/scripts/diagnose_planning_geometry.py) | Execution-based cost diagnostics and replay |
+| [T2G-JEPA/hjepa/cost_diagnostics.py](T2G-JEPA/hjepa/cost_diagnostics.py) | Temporal-cost statistics and reports |
+| [T2G-JEPA/scripts/data](T2G-JEPA/scripts/data) | Dataset preparation and collection |
 
 ## 8) Citation and Acknowledgments
 

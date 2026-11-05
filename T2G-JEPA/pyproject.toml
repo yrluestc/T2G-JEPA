@@ -2,7 +2,7 @@
 name = "h-jepa"
 version = "1.0.0"
 description = "Hierarchical JEPA world models"
-readme="README.md"
+readme="../README.md"
 license="MIT"
 authors = [
   {name = "Wancong Zhang"},
