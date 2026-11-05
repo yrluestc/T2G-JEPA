@@ -5,7 +5,7 @@
 
 <div align="center">
   <a href="https://arxiv.org/abs/2611.05847"><img alt="arXiv:2611.05847" src="https://img.shields.io/badge/arXiv-2611.05847-b31b1b?logo=arxiv"></a>
-  <a href="T2G_Arxiv.pdf"><img alt="Local paper" src="https://img.shields.io/badge/Paper-PDF-blue"></a>
+  <a href="2611.05847v1.pdf"><img alt="Local paper" src="https://img.shields.io/badge/Paper-PDF-blue"></a>
   <a href="https://huggingface.co/datasets/jepa-world-models/h-jepa"><img alt="Upstream datasets" src="https://img.shields.io/badge/🤗_Datasets-H--JEPA-ffc107"></a>
   <a href="https://huggingface.co/jepa-world-models/h-jepa"><img alt="Upstream world models" src="https://img.shields.io/badge/🤗_World_Models-H--JEPA-ffc107"></a>
 </div>
