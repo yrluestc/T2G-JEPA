@@ -1,0 +1,41 @@
+defaults:
+  - cube_lewm
+  - _self_
+
+policy: ${oc.env:HJEPA_HOME}/ckpts/cube/cube_lewm/seed${seed}/cube_lewm_object.ckpt
+
+data:
+  dataset:
+    level1:
+      # Longer window only for temporal-metric training; eval configs unchanged.
+      num_steps: 16
+
+metric:
+  max_steps: 15
+  min_steps: 1
+  gap: 2
+  margin: 1.0
+  negative_weight: 0.0
+  hidden_dim: 256
+  depth: 2
+  dropout: 0.0
+  output_name: temporal_metric.pt
+  log_every: 10
+
+trainer:
+  max_epochs: 5
+
+device: cuda
+
+diagnosis:
+  batch_size: 32
+  num_batches: 16
+  num_workers: 4
+  gaps: [1, 5, 10]
+  long_horizon_window: 5
+  goal_adjacent_window: 5
+  goal_steps: null
+  rollout_horizon: null
+  rollout_history_size: 1
+  dataset_name: null
+  output_dir: null

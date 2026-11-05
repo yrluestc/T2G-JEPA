@@ -1,0 +1,6 @@
+defaults:
+  - droid_flat_metric
+  - _self_
+
+# n=1 is the matched terminal-cost comparison to the original DROID baseline.
+metric_last_n: 1

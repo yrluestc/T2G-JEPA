@@ -1,0 +1,8 @@
+defaults:
+  - fourroom_flat
+  - _self_
+
+# Flat LeWM + learned temporal metric cost over all predicted future states.
+cost: metric_dense
+metric_ckpt: ${oc.env:HJEPA_HOME}/ckpts/fourroom/fourroom_lewm/seed${seed}/temporal_metric.pt
+metric_last_n: null

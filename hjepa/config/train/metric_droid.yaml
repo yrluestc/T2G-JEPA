@@ -1,0 +1,38 @@
+defaults:
+  - droid_lewm
+  - _self_
+
+policy: ${oc.env:HJEPA_HOME}/ckpts/droid/droid_lewm/seed${seed}/droid_lewm_object.ckpt
+
+# Inherit the training CSV (minus the 16 evaluation episodes), cameras, 5 fps,
+# action/proprio normalization and 384-dimensional encoder from droid_lewm.
+data:
+  dataset:
+    level1:
+      num_steps: 37
+
+loader:
+  # Long raw-video clips cost substantially more memory than LeWM's 8 frames.
+  batch_size: 8
+
+metric:
+  max_steps: 36
+  min_steps: 1
+  gap: 2
+  sampling: uniform_far
+  triples_per_clip: 16
+  margin: 1.0
+  negative_weight: 0.0
+  hidden_dim: 256
+  depth: 2
+  dropout: 0.0
+  encode_batch_size: 32
+  output_name: temporal_metric.pt
+  save_every_n_epochs: 10
+  log_every: 10
+
+trainer:
+  max_epochs: 100
+  limit_train_batches: 292
+
+device: cuda

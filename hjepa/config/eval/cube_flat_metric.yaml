@@ -1,0 +1,11 @@
+defaults:
+  - cube_flat
+  - _self_
+
+# Flat LeWM + learned temporal metric cost at the final predicted state.
+cost: metric
+metric_ckpt: ${oc.env:HJEPA_HOME}/ckpts/cube/cube_lewm/seed${seed}/temporal_metric.pt
+plan_config:
+  horizon: 2
+  receding_horizon: 2
+  horizon_schedule: constant

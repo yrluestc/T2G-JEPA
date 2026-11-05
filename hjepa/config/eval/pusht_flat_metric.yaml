@@ -1,0 +1,12 @@
+defaults:
+  - pusht_flat
+  - _self_
+
+# Flat LeWM + learned temporal metric cost over all predicted future states.
+cost: metric_dense
+metric_ckpt: ${oc.env:HJEPA_HOME}/ckpts/pusht/pusht_lewm/seed${seed}/temporal_metric.pt
+#metric_last_n: null
+plan_config:
+  horizon: 15
+  receding_horizon: 2
+  horizon_schedule: decreasing

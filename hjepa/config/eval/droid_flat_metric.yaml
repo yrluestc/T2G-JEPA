@@ -1,0 +1,10 @@
+defaults:
+  - droid_flat
+  - _self_
+
+# Keep the baseline's clips, solver, 36-step horizon and offline metrics.
+# Null resolves temporal_metric.pt beside the selected LeWM checkpoint, so
+# the planning seed can vary independently of the world-model training seed.
+cost: metric_dense
+metric_ckpt: null
+metric_last_n: null
