@@ -193,11 +193,10 @@ seed42/
 ├── temporal_metric_state.pt
 ├── temporal_metric_epoch_01.pt
 ├── ...
-├── temporal_metric_epoch_05.pt
-└── temporal_metric_train.csv
+└── temporal_metric_epoch_05.pt
 ```
 
-The metric is saved every epoch by default. The CSV records loss, ranking accuracy, margin satisfaction, distance gaps, and sampling statistics. The state file includes optimizer state; the entry point does not automatically resume metric training. A fresh run overwrites the metric output names. For a separate experiment, choose another name with `metric.output_name=temporal_metric_experiment.pt`.
+The metric is saved every epoch by default. The state file includes optimizer state; the entry point does not automatically resume metric training. A fresh run overwrites the metric output names. For a separate experiment, choose another name with `metric.output_name=temporal_metric_experiment.pt`.
 
 T2G learns **relative temporal ordering**; its distance is not calibrated in remaining steps.
 
